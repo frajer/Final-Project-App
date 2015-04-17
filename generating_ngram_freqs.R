@@ -15,6 +15,10 @@ n_gram_tokenizer <- function(x) NGramTokenizer(x, Weka_control(min = 4, max = 4)
 
 build_ngram_freqs <- function(){
     text <- iconv(enc2utf8(text), sub = "byte")
+    words <- unlist(strsplit(text, " +"))
+    words <- gsub("[^[:alpha:]]","",words)
+    text <- paste(words, collapse = " +")
+    rm(words)
     corpus <- Corpus(VectorSource(text))
     rm(text)
     
